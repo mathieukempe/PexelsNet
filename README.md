@@ -21,3 +21,11 @@ foreach (var photo in page.Photos)
 }
 
 ```
+
+Paginate
+
+```csharp
+
+var page = client.Search("business", 2, 20); 
+
+```
