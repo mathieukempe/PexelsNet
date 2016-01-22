@@ -24,7 +24,7 @@ namespace PexelsNet
             return client;
         }
 
-        public Page Search(string query, int perPage = 15, int page = 1)
+        public Page Search(string query, int page = 1, int perPage = 15)
         {
             var client = InitHttpClient();
 
