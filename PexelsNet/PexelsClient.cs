@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Net;
 using System.Net.Http;
 using Newtonsoft.Json;
 
@@ -29,19 +28,31 @@ namespace PexelsNet
             var client = InitHttpClient();
 
             HttpResponseMessage response = client.GetAsync(BaseUrl + "search?query=" + Uri.EscapeDataString(query) + "&per_page="+ perPage + "&page=" + page).Result;
-            string body = response.Content.ReadAsStringAsync().Result;
+
+            return GetResult(response);
+        }
+
+        public Page Popular(int page = 1, int perPage = 15)
+        {
+            var client = InitHttpClient();
+
+            HttpResponseMessage response = client.GetAsync(BaseUrl + "popular?per_page=" + perPage + "&page=" + page).Result;
+
+            return GetResult(response);
+        }
+
+        private static Page GetResult(HttpResponseMessage response)
+        {
+            var body = response.Content.ReadAsStringAsync().Result;
 
             response.EnsureSuccessStatusCode();
 
             if (response.IsSuccessStatusCode)
             {
-                var result = JsonConvert.DeserializeObject<Page>(body);
-                return result;
+                return JsonConvert.DeserializeObject<Page>(body);
             }
 
             throw new PexelsNetException(response.StatusCode, body);
         }
-
-        
     }
 }
