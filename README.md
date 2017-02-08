@@ -1,31 +1,52 @@
 # PexelsNet
-PexelsNet is a .NET class library that provides an easy-to-use interface for the https://www.pexels.com/ web api
+PexelsNet is a .NET class library that provides an easy-to-use interface for the [Pexels API](https://www.pexels.com/api/)
 
-##Initializing
+## Initializing
 
 ```csharp
-
-PexelsClient client = new PexelsClient("<Your Api key>");
-
+var client = new PexelsClient("<Your Api key>");
 ```
 
-Than to search pictures
+## Methods
+
+### Search
+
+The following example will grab all images for the term `business` using the default pagination (15 images).
 
 ```csharp
+var results = client.Search("business"); 
 
-var page = client.Search("business"); 
-
-foreach (var photo in page.Photos)
+foreach (var image in results.Photos)
 {
-    Console.WriteLine(photo.Src.Medium);
+    Console.WriteLine(image.Src.Medium);
 }
-
 ```
 
-Paginate
+### Popular
+
+The following example will grab all popular images using the default pagination (15 images).
 
 ```csharp
+var results = client.Popular(); 
 
+foreach (var image in results.Photos)
+{
+    Console.WriteLine(image.Src.Medium);
+}
+```
+
+## Pagination
+
+By default, pexels will return 15 images but you can specify your own pagination. 
+
+The following example will grab 20 images from the 2nd page for the term `business`.
+
+```csharp
 var page = client.Search("business", 2, 20); 
+```
 
+The following example will grab 20 popular images from the 2nd page.
+
+```csharp
+var page = client.Popular(2, 20); 
 ```
