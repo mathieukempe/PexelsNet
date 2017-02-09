@@ -30,21 +30,21 @@ namespace PexelsNet
 
             HttpResponseMessage response = await client.GetAsync(BaseUrl + "search?query=" + Uri.EscapeDataString(query) + "&per_page=" + perPage + "&page=" + page);
 
-            return await GetResultAsync(response);
+            return await GetResultAsync(response).ConfigureAwait(false);
         }
 
         public async Task<Page> PopularAsync(int page = 1, int perPage = 15)
         {
             var client = InitHttpClient();
 
-            HttpResponseMessage response = await client.GetAsync(BaseUrl + "popular?per_page=" + perPage + "&page=" + page);
+            HttpResponseMessage response = await client.GetAsync(BaseUrl + "popular?per_page=" + perPage + "&page=" + page).ConfigureAwait(false);
 
-            return await GetResultAsync(response);
+            return await GetResultAsync(response).ConfigureAwait(false);
         }
 
         private static async Task<Page> GetResultAsync(HttpResponseMessage response)
         {
-            var body = await response.Content.ReadAsStringAsync();
+            var body = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
 
             response.EnsureSuccessStatusCode();
 
