@@ -1,6 +1,7 @@
-﻿using System;
+using System;
 using System.Net.Http;
 using Newtonsoft.Json;
+using System.Threading.Tasks;
 
 namespace PexelsNet
 {
@@ -23,27 +24,27 @@ namespace PexelsNet
             return client;
         }
 
-        public Page Search(string query, int page = 1, int perPage = 15)
+        public async Task<Page> SearchAsync(string query, int page = 1, int perPage = 15)
         {
             var client = InitHttpClient();
 
-            HttpResponseMessage response = client.GetAsync(BaseUrl + "search?query=" + Uri.EscapeDataString(query) + "&per_page="+ perPage + "&page=" + page).Result;
+            HttpResponseMessage response = await client.GetAsync(BaseUrl + "search?query=" + Uri.EscapeDataString(query) + "&per_page=" + perPage + "&page=" + page);
 
-            return GetResult(response);
+            return await GetResultAsync(response);
         }
 
-        public Page Popular(int page = 1, int perPage = 15)
+        public async Task<Page> PopularAsync(int page = 1, int perPage = 15)
         {
             var client = InitHttpClient();
 
-            HttpResponseMessage response = client.GetAsync(BaseUrl + "popular?per_page=" + perPage + "&page=" + page).Result;
+            HttpResponseMessage response = await client.GetAsync(BaseUrl + "popular?per_page=" + perPage + "&page=" + page);
 
-            return GetResult(response);
+            return await GetResultAsync(response);
         }
 
-        private static Page GetResult(HttpResponseMessage response)
+        private static async Task<Page> GetResultAsync(HttpResponseMessage response)
         {
-            var body = response.Content.ReadAsStringAsync().Result;
+            var body = await response.Content.ReadAsStringAsync();
 
             response.EnsureSuccessStatusCode();
 
