@@ -18,7 +18,7 @@ var client = new PexelsClient("<Your Api key>");
 The following example will grab all images for the term `business` using the default pagination (15 images).
 
 ```csharp
-var results = client.Search("business"); 
+var results = client.SearchAsync("business").Result; 
 
 foreach (var image in results.Photos)
 {
@@ -31,7 +31,7 @@ foreach (var image in results.Photos)
 The following example will grab all popular images using the default pagination (15 images).
 
 ```csharp
-var results = client.Popular(); 
+var results = client.PopularAsync().Result; 
 
 foreach (var image in results.Photos)
 {
@@ -46,11 +46,11 @@ By default, pexels will return 15 images but you can specify your own pagination
 The following example will grab 20 images from the 2nd page for the term `business`.
 
 ```csharp
-var page = client.Search("business", 2, 20); 
+var page = client.SearchAsync("business", 2, 20).Result; 
 ```
 
 The following example will grab 20 popular images from the 2nd page.
 
 ```csharp
-var page = client.Popular(2, 20); 
+var page = client.PopularAsync(2, 20).Result; 
 ```
