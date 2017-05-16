@@ -28,7 +28,7 @@ namespace PexelsNet
         {
             using (var client = InitHttpClient())
             {
-                HttpResponseMessage response = await client.GetAsync(BaseUrl + "search?query=" + Uri.EscapeDataString(query) + "&per_page=" + perPage + "&page=" + page);
+                HttpResponseMessage response = await client.GetAsync(BaseUrl + "search?query=" + Uri.EscapeDataString(query) + "&per_page=" + perPage + "&page=" + page).ConfigureAwait(false);
 
                 return await GetResultAsync(response).ConfigureAwait(false);
             }            
