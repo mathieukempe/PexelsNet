@@ -39,7 +39,11 @@ namespace PexelsNet
 
             if (response.IsSuccessStatusCode)
             {
-                return JsonConvert.DeserializeObject<Page>(body);
+                var page = JsonConvert.DeserializeObject<Page>(body);
+
+                page.RateLimit = new RateLimitParser(response).Parse();
+
+                return page;
             }
 
             throw new PexelsNetException(response.StatusCode, body);

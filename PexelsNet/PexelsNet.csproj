@@ -48,6 +48,8 @@
     <Compile Include="Page.cs" />
     <Compile Include="PexelsClient.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RateLimitParser.cs" />
+    <Compile Include="UnixTimeStamp.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
