@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Newtonsoft.Json;
 
 namespace PexelsNet
@@ -40,5 +41,21 @@ namespace PexelsNet
         public string NextPage { get; set; }
 
         public List<Photo> Photos { get; set; }
+
+        public RateLimit RateLimit { get; set; }
+    }
+
+    public class RateLimit
+    {
+        public long Limit { get; set; }
+
+        public long Remaining { get; set; }
+
+        public DateTime ResetDate { get; set; }
+
+        public override string ToString()
+        {
+            return $"{Remaining} of {Limit} remaining. Limit will reset at: {ResetDate:yyyy-MM-dd HH:mm}";
+        }
     }
 }
