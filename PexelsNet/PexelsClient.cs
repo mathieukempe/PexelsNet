@@ -30,6 +30,13 @@ namespace PexelsNet
             return await GetResultAsync(response).ConfigureAwait(false);
         }
 
+        public async Task<Page> CuratedAsync(int page = 1, int perPage = 15)
+        {
+            HttpResponseMessage response = await _client.GetAsync(BaseUrl + "curated?per_page=" + perPage + "&page=" + page).ConfigureAwait(false);
+
+            return await GetResultAsync(response).ConfigureAwait(false);
+        }
+
         private static async Task<Page> GetResultAsync(HttpResponseMessage response)
         {
             var body = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
