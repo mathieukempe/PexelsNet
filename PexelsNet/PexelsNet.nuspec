@@ -8,10 +8,10 @@
     <owners>$author$</owners>    
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>
-    <releaseNotes>Made async.</releaseNotes>
-    <copyright>Copyright 2017</copyright>
+    <releaseNotes>.net standard 2.0</releaseNotes>
+    <copyright>Copyright 2020</copyright>
     <tags>Pexels</tags>
-	<projectUrl>https://github.com/selz/pexelsnet</projectUrl>
-	<licenseUrl>https://github.com/selz/pexelsnet/blob/master/LICENSE</licenseUrl>
+	<projectUrl>https://github.com/mathieukempe/pexelsnet</projectUrl>
+	<licenseUrl>https://github.com/mathiekempe/pexelsnet/blob/master/LICENSE</licenseUrl>
   </metadata>
 </package>
