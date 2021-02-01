@@ -3,7 +3,7 @@
     <TargetFrameworks>net472; netstandard2.0</TargetFrameworks>
     <Author>Mathieu Kempe</Author>
     <Authors>Mathieu Kempe</Authors>
-    <Version>3.0.0</Version>
+    <Version>3.1.0</Version>
     <AssemblyName>PexelsNet</AssemblyName>
     <RootNamespace>PexelsNet</RootNamespace>
     <PackageId>PexelsNet</PackageId>
@@ -13,6 +13,7 @@
     <RepositoryUrl>https://github.com/mathieukempe/PexelsNet</RepositoryUrl>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
 
   <ItemGroup>
