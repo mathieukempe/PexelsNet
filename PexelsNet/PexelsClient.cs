@@ -7,7 +7,7 @@ namespace PexelsNet
 {
     public class PexelsClient
     {
-        private const string BaseUrl = "http://api.pexels.com/v1/";
+        private const string BaseUrl = "https://api.pexels.com/v1/";
 
         private readonly HttpClient _client = new HttpClient();
 
