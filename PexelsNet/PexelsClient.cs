@@ -16,28 +16,40 @@ namespace PexelsNet
             _client.DefaultRequestHeaders.TryAddWithoutValidation("Authorization", apiKey);
         }
 
+        public Task<Photo> GetPhotoAsync(int photoId)
+        {
+            return GetPhotoAsync(photoId.ToString());
+        }
+
+        public async Task<Photo> GetPhotoAsync(string photoId)
+        {
+            HttpResponseMessage response = await _client.GetAsync(BaseUrl + "photos/" + photoId).ConfigureAwait(false);
+
+            return await GetResultAsync<Photo>(response).ConfigureAwait(false);
+        }
+
         public async Task<Page> SearchAsync(string query, int page = 1, int perPage = 15)
         {
             HttpResponseMessage response = await _client.GetAsync(BaseUrl + "search?query=" + Uri.EscapeDataString(query) + "&per_page=" + perPage + "&page=" + page).ConfigureAwait(false);
 
-            return await GetResultAsync(response).ConfigureAwait(false);
+            return await GetResultAsync<Page>(response).ConfigureAwait(false);
         }
 
         public async Task<Page> PopularAsync(int page = 1, int perPage = 15)
         {
             HttpResponseMessage response = await _client.GetAsync(BaseUrl + "popular?per_page=" + perPage + "&page=" + page).ConfigureAwait(false);
 
-            return await GetResultAsync(response).ConfigureAwait(false);
+            return await GetResultAsync<Page>(response).ConfigureAwait(false);
         }
 
         public async Task<Page> CuratedAsync(int page = 1, int perPage = 15)
         {
             HttpResponseMessage response = await _client.GetAsync(BaseUrl + "curated?per_page=" + perPage + "&page=" + page).ConfigureAwait(false);
 
-            return await GetResultAsync(response).ConfigureAwait(false);
+            return await GetResultAsync<Page>(response).ConfigureAwait(false);
         }
 
-        private static async Task<Page> GetResultAsync(HttpResponseMessage response)
+        private static async Task<T> GetResultAsync<T>(HttpResponseMessage response)
         {
             var body = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
 
@@ -45,11 +57,12 @@ namespace PexelsNet
 
             if (response.IsSuccessStatusCode)
             {
-                var page = JsonConvert.DeserializeObject<Page>(body);
+                var resultObject = JsonConvert.DeserializeObject<T>(body);
 
-                page.RateLimit = new RateLimitParser(response).Parse();
+                if (resultObject is Page page)
+                    page.RateLimit = new RateLimitParser(response).Parse();
 
-                return page;
+                return resultObject;
             }
 
             throw new PexelsNetException(response.StatusCode, body);
